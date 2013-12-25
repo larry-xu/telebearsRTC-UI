@@ -1,3 +1,19 @@
 body {
   padding: 1.25em;
 }
+ul {
+  font-size: 0.8em;
+}
+li a {
+  display: block;
+  background: #e9e9e9;
+  margin: 0.125em 0;
+  padding: 0.25em 1em;
+  color: #222;
+}
+li a span {
+  float: right;
+}
+li a:hover {
+  background: #ccc;
+}

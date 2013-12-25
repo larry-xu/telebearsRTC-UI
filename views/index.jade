@@ -1,4 +1,23 @@
 extends layout
 
 block content
-  p Welcome to #{title}
+  .row
+    .large-12.columns
+      p Search for courses by academic department:
+  .row
+    - var length = departments.length
+    - var half_length = Math.ceil(length/2)
+    .large-6.columns
+      ul.no-bullet
+        - for (var i = 0; i < half_length; i++)
+          li
+            a(href=encodeURIComponent(departments[i].abbreviation))
+              | #{departments[i].name}
+              span (#{departments[i].abbreviation})
+    .large-6.columns
+      ul.no-bullet
+        - for (var i = half_length; i < length; i++)
+          li
+            a(href=encodeURIComponent(departments[i].abbreviation))
+              | #{departments[i].name}
+              span (#{departments[i].abbreviation})
