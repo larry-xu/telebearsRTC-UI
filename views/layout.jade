@@ -1,7 +1,26 @@
 doctype html
-html
+html(class='no-js', lang='en')
   head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='stylesheets/normalize.css')
+    link(rel='stylesheet', href='stylesheets/foundation.min.css')
+    link(rel='stylesheet', href='stylesheets/style.css')
+    script(src='javascripts/vendor/custom.modernizr.js')
   body
-    block content
+    .row
+      .large-12.columns
+        img(src='images/telebearsRTC_logo.png')
+        hr
+        block content
+
+    script(src='javascripts/vendor/jquery.js')
+    script(src='javascripts/foundation.min.js')
+    script(src='javascripts/vendor/placeholder.js')
+    script(src='javascripts/vendor/fastclick.js')
+    script.
+      $(document).foundation();
+      $(function() {
+        FastClick.attach(document.body);
+      });
