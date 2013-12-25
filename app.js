@@ -28,6 +28,7 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+app.get('/:id', require('./routes/department').show)
 app.get('/', routes.index);
 
 http.createServer(app).listen(app.get('port'), function(){

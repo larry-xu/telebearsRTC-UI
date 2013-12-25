@@ -11,13 +11,13 @@ block content
       ul.no-bullet
         - for (var i = 0; i < half_length; i++)
           li
-            a(href=encodeURIComponent(departments[i].abbreviation))
+            a(href=encodeURIComponent(departments[i].abbreviation.toLowerCase()))
               | #{departments[i].name}
               span (#{departments[i].abbreviation})
     .large-6.columns
       ul.no-bullet
         - for (var i = half_length; i < length; i++)
           li
-            a(href=encodeURIComponent(departments[i].abbreviation))
+            a(href=encodeURIComponent(departments[i].abbreviation.toLowerCase()))
               | #{departments[i].name}
               span (#{departments[i].abbreviation})

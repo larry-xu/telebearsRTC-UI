@@ -16,7 +16,7 @@ exports.index = function(req, res) {
         data.push({ name: departments[i].name, abbreviation: abb });
       }
 
-      res.render('index', { title: 'telebearsRTC - Berkeley real-time course enrollment data', departments: data });
+      res.render('index', { title: 'Berkeley real-time course enrollment data', departments: data });
     }
   });
 };
