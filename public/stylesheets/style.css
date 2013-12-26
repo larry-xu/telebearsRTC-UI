@@ -1,20 +1,43 @@
 body {
   padding: 1.25em;
 }
+a img {
+  float: left;
+  margin: 0 1.25em 1em 0;
+}
 ul {
   margin: 0;
   font-size: 0.8em;
 }
-li a {
+li.listing a {
   display: block;
   background: #e9e9e9;
   margin-bottom: 0.125em;
   padding: 0.25em 1em;
   color: #222;
 }
-li a span {
+li.listing a span {
   float: right;
 }
-li a:hover {
+li.listing a:hover {
   background: #ccc;
+}
+h3 {
+  margin-bottom: 0.125em;
+}
+.breadcrumbs {
+  background: none;
+  border: none;
+  float: left;
+  padding: 0;
+}
+.breadcrumbs>* {
+  font-size: 0.75rem;
+}
+.breadcrumbs>*:before {
+  content: ">";
+  margin: 0 0.625em;
+}
+table {
+  width: 100%;
 }

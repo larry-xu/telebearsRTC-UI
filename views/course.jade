@@ -1,0 +1,29 @@
+extends layout
+
+block content
+  a.button.tiny Load All Data
+  table
+    thead
+      tr
+        th Section
+        th CCN
+        th Time
+        th Location
+        th Instructor
+        th Enrollment
+        th Waitlist
+        th Updated
+    tbody
+      for i in data
+        tr.table-row(id='ccn-'+i.ccn)
+          td #{i.section}
+          td.ccn #{i.ccn}
+          td #{i.time}
+          td #{i.location}
+          td #{i.instructor}
+          td.enroll
+          td.waitlist
+          td.updated
+            span.datetime
+            a.refresh(href='javascript:void(0);', data-ccn=i.ccn, title="Refresh")
+              i.icon-refresh

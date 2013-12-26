@@ -4,22 +4,32 @@ html(class='no-js', lang='en')
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     title= 'telebearsRTC - ' + title
-    link(rel='stylesheet', href='stylesheets/normalize.css')
-    link(rel='stylesheet', href='stylesheets/foundation.min.css')
-    link(rel='stylesheet', href='stylesheets/style.css')
-    script(src='javascripts/vendor/custom.modernizr.js')
+    link(rel='stylesheet', href='/stylesheets/normalize.css')
+    link(rel='stylesheet', href='/stylesheets/foundation.min.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src='/javascripts/vendor/custom.modernizr.js')
   body
     .row
       .large-12.columns
         a(href='/')
-          img(src='images/telebearsRTC_logo.png')
+          img(src='/images/telebearsRTC_logo.png')
+        h3= title
+        unless !breadcrumbs
+          ul.breadcrumbs
+            each crumb, index in breadcrumbs
+              unless index == breadcrumbs.length - 1
+                li
+                  a(href='/'+crumb.href)= crumb.val
+              else
+                li.current
+                  a= crumb.val
         hr
         block content
 
-    script(src='javascripts/vendor/jquery.js')
-    script(src='javascripts/foundation.min.js')
-    script(src='javascripts/vendor/placeholder.js')
-    script(src='javascripts/vendor/fastclick.js')
+    script(src='/javascripts/vendor/jquery.js')
+    script(src='/javascripts/foundation.min.js')
+    script(src='/javascripts/vendor/placeholder.js')
+    script(src='/javascripts/vendor/fastclick.js')
     script.
       $(document).foundation();
       $(function() {
