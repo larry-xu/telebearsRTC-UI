@@ -28,6 +28,8 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+app.get('/api/sections/:id/:course', require('./routes/course').show);
+
 app.get('/:id/:course', require('./routes/course').index);
 app.get('/:id', require('./routes/department').show);
 app.get('/', routes.index);

@@ -1,13 +1,16 @@
 doctype html
-html(class='no-js', lang='en')
+html(class='no-js', lang='en', ng-app="enrollmentApp")
   head
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     title= 'telebearsRTC - ' + title
     link(rel='stylesheet', href='/stylesheets/normalize.css')
     link(rel='stylesheet', href='/stylesheets/foundation.min.css')
+    link(rel='stylesheet', href='//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='/javascripts/vendor/custom.modernizr.js')
+    script(src='//ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.min.js')
+    script(src='/javascripts/controller.js')
   body
     .row
       .large-12.columns

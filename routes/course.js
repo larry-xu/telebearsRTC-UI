@@ -4,6 +4,7 @@
  */
 
 var jsdom = require('jsdom')
+  , db = require('../mongo').database_connect('departments')
   , semester = process.env.SEMESTER
   , year = process.env.YEAR;
 
@@ -18,11 +19,31 @@ exports.index = function(req, res) {
   var title = courseName.toUpperCase() + ' Enrollment Data';
   var breadcrumbs = [{href: hrefID, val: id}, {href: hrefID+'/'+course, val: course}];
 
-  exports.loadSectionList(id, course, function(result) {
-    res.set('Cache-Control','private');
-    res.render('course', { title: title, breadcrumbs: breadcrumbs, data: result });
+  db.departments.find({
+    abbreviation: id.toUpperCase(),
+    courses: {
+      $elemMatch: {course: course.toUpperCase()}
+    }
+  }, function(err, department) {
+    if(err || !department) console.log('DB error');
+    else if(department.length < 1) {
+      console.log('could not find department ' + id);
+      res.redirect('/');
+    }
+    else {
+      res.render('course', { title: title, breadcrumbs: breadcrumbs, id: id, course: course });
+    }
   });
 };
+
+exports.show = function(req, res) {
+  var id = req.params.id;
+  var course = req.params.course;
+  exports.loadSectionList(id, course, function(result) {
+    res.set('Cache-Control','private');
+    res.json(result);
+  });
+}
 
 // queries osoc.berkeley.edu for all course listings for a given course
 // returns an array of objects containing course data

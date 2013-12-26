@@ -38,6 +38,12 @@ h3 {
   content: ">";
   margin: 0 0.625em;
 }
+.controls {
+  margin-bottom: 1.25rem;
+}
+.controls a {
+  margin-bottom: 0;
+}
 table {
   width: 100%;
 }

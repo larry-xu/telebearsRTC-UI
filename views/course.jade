@@ -1,8 +1,8 @@
 extends layout
 
 block content
-  a.button.tiny Load All Data
-  table
+  .controls(load-controls)
+  table(ng-controller="DataCtrl" ng-init="init('#{id}','#{course}')")
     thead
       tr
         th Section
@@ -14,16 +14,15 @@ block content
         th Waitlist
         th Updated
     tbody
-      for i in data
-        tr.table-row(id='ccn-'+i.ccn)
-          td #{i.section}
-          td.ccn #{i.ccn}
-          td #{i.time}
-          td #{i.location}
-          td #{i.instructor}
-          td.enroll
-          td.waitlist
-          td.updated
-            span.datetime
-            a.refresh(href='javascript:void(0);', data-ccn=i.ccn, title="Refresh")
-              i.icon-refresh
+      tr.table-row(ng-repeat="section in sections")
+        td {{section.section}}
+        td.ccn {{section.ccn}}
+        td {{section.time}}
+        td {{section.location}}
+        td {{section.instructor}}
+        td {{section.enrollment}}
+        td {{section.waitlist}}
+        td
+          span {{section.date}}
+          a(href='javascript:void(0);', data-ccn='{{section.ccn}}', title="Refresh")
+            i.fa.fa-refresh
