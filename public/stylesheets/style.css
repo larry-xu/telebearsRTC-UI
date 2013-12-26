@@ -47,3 +47,14 @@ h3 {
 table {
   width: 100%;
 }
+table .filled,
+table tr:nth-of-type(even).filled {
+  background: #f3d8d9;
+}
+table tr:hover,
+table tr:nth-of-type(even):hover {
+  background: #ddd;
+}
+table tr.headings:hover {
+  background: inherit;
+}

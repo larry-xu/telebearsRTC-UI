@@ -1,28 +1,30 @@
 extends layout
 
 block content
-  .controls(load-controls)
-  table(ng-controller="DataCtrl" ng-init="init('#{id}','#{course}')")
-    thead
-      tr
-        th Section
-        th CCN
-        th Time
-        th Location
-        th Instructor
-        th Enrollment
-        th Waitlist
-        th Updated
-    tbody
-      tr.table-row(ng-repeat="section in sections")
-        td {{section.section}}
-        td.ccn {{section.ccn}}
-        td {{section.time}}
-        td {{section.location}}
-        td {{section.instructor}}
-        td {{section.enrollment}}
-        td {{section.waitlist}}
-        td
-          span {{section.date}}
-          a(href='javascript:void(0);', data-ccn='{{section.ccn}}', title="Refresh")
-            i.fa.fa-refresh
+  .row(ng-controller="DataCtrl" ng-init="init('#{id}','#{course}')")
+    .large-12.columns
+      .controls(load-controls)
+      table
+        thead
+          tr.headings
+            th Section
+            th CCN
+            th Time
+            th Location
+            th Instructor
+            th Enrollment
+            th Waitlist
+            th Updated
+        tbody
+          tr.table-row(ng-repeat="section in sections", ng-class='section.filled')
+            td {{section.section}}
+            td.ccn {{section.ccn}}
+            td {{section.time}}
+            td {{section.location}}
+            td {{section.instructor}}
+            td {{section.enrollment}}
+            td {{section.waitlist}}
+            td
+              span {{section.date}}
+              a.right(ng-click='load(section.index,section.ccn)', title="Refresh")
+                i.fa.fa-refresh(ng-class="section.loading")
