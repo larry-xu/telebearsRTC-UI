@@ -1,61 +1,111 @@
 var app = angular.module("enrollmentApp", []);
 
-app.config(function($httpProvider) {
-  $httpProvider.interceptors.push(function($q, $rootScope) {
-    return {
-      'response': function(response) {
-          if(response.config.url.indexOf('sections') > -1)
-            $rootScope.$broadcast('loading-complete');
-          return response || $q.when(response);
-      }
-    };
-  });
-});
-
-app.directive("loadControls", function() {
-  return {
-    template: "Loading sections ... <i class='fa fa-spinner fa-spin'></i>",
-    link: function(scope, element, attrs) {
-      scope.$on("loading-complete", function(e) {
-        element.html("<a class='button tiny'>Load All Data</a>");
-        element.children('a').bind('click', scope.loadData);
-      });
-    }
-  };
-});
-
 app.controller('DataCtrl', function($scope, $http) {
+  $scope.loading = true;
+  $scope.initialized = false;
+  $scope.enrollment = true;
+  $scope.waitlist = true;
+
+  function responsiveTable(newWidth, oldWidth) {
+    if(!$scope.initialized) {
+      if(newWidth < 641) {
+        $scope.time = false;
+        $scope.location = false;
+        $scope.instructor = false;
+        $scope.updated = false;
+      }
+      else if(newWidth < 1025) {
+        $scope.time = true;
+        $scope.location = true;
+        $scope.instructor = false;
+        $scope.updated = false;
+      }
+      else {
+        $scope.time = true;
+        $scope.location = true;
+        $scope.instructor = true;
+        $scope.updated = true;
+      }
+      $scope.initialized = true;
+    }
+    else {
+      if(newWidth < 641) {
+        if(!(oldWidth < 641)) {
+          $scope.time = false;
+          $scope.location = false;
+          $scope.instructor = false;
+          $scope.updated = false;
+        }
+      }
+      else if(newWidth < 1025) {
+        if(!(oldWidth < 1025 && oldWidth > 640)) {
+          $scope.time = true;
+          $scope.location = true;
+          $scope.instructor = false;
+          $scope.updated = false;
+        }
+      }
+      else {
+        $scope.time = true;
+        $scope.location = true;
+        $scope.instructor = true;
+        $scope.updated = true;
+      }
+    }
+  }
+
+  $scope.$watch(
+    function() { return $(window).width(); },
+    responsiveTable
+  );
+
+  $(window).resize(function() {
+    $scope.$apply();
+  });
 
   $scope.init = function(id, course) {
     $http.get('/api/sections/'+id+'/'+course)
       .success(function(data) {
         $scope.sections = data;
+        $scope.loading = false;
       })
       .error(function(data) {
         console.log('Error: ' + data);
       });
   }
 
-  $scope.loadData = function() {
+  $scope.loadAllData = function() {
     angular.forEach($scope.sections, function(section, key) {
       var ccn = section.ccn;
-      $scope.load(key, ccn);
+      $scope.loadData(key, ccn);
     });
   };
 
-  $scope.load = function(index, ccn) {
-    $scope.sections[index].loading = "fa-spin";
+  $scope.loadData = function(index, ccn) {
+    $scope.sections[index].loading = true;
     $http.get('/api/enrollment/'+ccn)
       .success(function(data) {
         $scope.sections[index].date = new Date().toLocaleString();
+        $scope.sections[index].enroll = data.enroll;
+        $scope.sections[index].enrollLimit = data.enrollLimit;
         $scope.sections[index].enrollment = data.enroll + '/' + data.enrollLimit;
         $scope.sections[index].waitlist = data.waitlist + '/' + data.waitlistLimit;
-        if(data.enroll == data.enrollLimit)
-          $scope.sections[index].filled = 'filled';
-        $scope.sections[index].loading = "";
+        if(data.enroll == data.enrollLimit) {
+          $scope.sections[index].filled = true;
+          $scope.sections[index].hide = $scope.hide;
+        }
+        $scope.sections[index].loading = false;
       })
       .error(function(data) {
         console.log('Error: ' + data);
       });
+  }
+
+  $scope.toggleHide = function() {
+    angular.forEach($scope.sections, function(section, key) {
+      if(section.enroll != null && section.enrollLimit != null && section.enroll == section.enrollLimit) {
+        section.hide = !$scope.hide;
+      }
+    });
   }
 });

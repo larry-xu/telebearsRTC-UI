@@ -3,28 +3,58 @@ extends layout
 block content
   .row(ng-controller="DataCtrl" ng-init="init('#{id}','#{course}')")
     .large-12.columns
-      .controls(load-controls)
-      table
+      .controls(ng-show="loading")
+        | Loading sections ... 
+        i.fa.fa-spinner.fa-spin
+      .controls(ng-cloak, ng-hide="loading")
+        a.button.tiny(ng-click="loadAllData()")
+          i.fa.fa-refresh
+          | Load All Data
+        a.button.tiny.right.dropdown.hide-for-large-up(data-dropdown="drop") Display
+        br
+        ul#drop.f-dropdown(data-dropdown-content)
+          li
+            input#time-filter(type="checkbox", ng-model="time")
+            label(for="time-filter") Time
+          li
+            input#location-filter(type="checkbox", ng-model="location")
+            label(for="location-filter") Location
+          li
+            input#instructor-filter(type="checkbox", ng-model="instructor")
+            label(for="instructor-filter") Instructor
+          li
+            input#enrollment-filter(type="checkbox", ng-model="enrollment")
+            label(for="enrollment-filter") Enrollment
+          li
+            input#waitlist-filter(type="checkbox", ng-model="waitlist")
+            label(for="waitlist-filter") Waitlist
+          li
+            input#updated-filter(type="checkbox", ng-model="updated")
+            label(for="updated-filter") Updated
+        input#hide-full-filter(type="checkbox", ng-model="hide" ng-click="toggleHide()")
+        label(for="hide-full-filter") Hide Full Sections
+      table(ng-cloak)
         thead
           tr.headings
             th Section
             th CCN
-            th Time
-            th Location
-            th Instructor
-            th Enrollment
-            th Waitlist
-            th Updated
+            th(ng-show="time") Time
+            th(ng-show="location") Location
+            th(ng-show="instructor") Instructor
+            th(ng-show="enrollment") Enrollment
+            th(ng-show="waitlist") Waitlist
+            th(ng-show="updated") Updated
+            th
         tbody
-          tr.table-row(ng-repeat="section in sections", ng-class='section.filled')
+          tr.table-row(ng-repeat="section in sections", ng-class='{filled: section.filled, hide: section.hide}')
             td {{section.section}}
             td.ccn {{section.ccn}}
-            td {{section.time}}
-            td {{section.location}}
-            td {{section.instructor}}
-            td {{section.enrollment}}
-            td {{section.waitlist}}
+            td(ng-show="time") {{section.time}}
+            td(ng-show="location") {{section.location}}
+            td(ng-show="instructor") {{section.instructor}}
+            td(ng-show="enrollment") {{section.enrollment}}
+            td(ng-show="waitlist") {{section.waitlist}}
+            td(ng-show="updated") {{section.date}}
             td
-              span {{section.date}}
-              a.right(ng-click='load(section.index,section.ccn)', title="Refresh")
-                i.fa.fa-refresh(ng-class="section.loading")
+              a(ng-click='load(section.index,section.ccn)', title="Update")
+                i.fa.fa-refresh(ng-class="{'fa-spin': section.loading}")
