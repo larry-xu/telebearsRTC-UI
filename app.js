@@ -30,6 +30,7 @@ if ('development' == app.get('env')) {
 
 app.get('/api/sections/:id/:course', require('./routes/api').sections);
 app.get('/api/enrollment/:ccn', require('./routes/api').enrollment);
+app.get('/search', require('./routes/search').index);
 
 app.get('/:id/:course', require('./routes/course').index);
 app.get('/:id', require('./routes/department').show);

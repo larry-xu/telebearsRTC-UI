@@ -56,5 +56,5 @@ block content
             td(ng-show="waitlist") {{section.waitlist}}
             td(ng-show="updated") {{section.date}}
             td
-              a(ng-click='load(section.index,section.ccn)', title="Update")
+              a(ng-click='loadData(section.index,section.ccn)', title="Update")
                 i.fa.fa-refresh(ng-class="{'fa-spin': section.loading}")

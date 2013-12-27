@@ -9,6 +9,7 @@ var db = require('../mongo').database_connect('departments');
 
 exports.show = function(req, res) {
   var id = req.params.id.toUpperCase();
+  var breadcrumbs = [{href: id, val: id}];
 
   db.departments.find({abbreviation: id}, function(err, department) {
     if(err || !department) console.log('DB error');
@@ -17,7 +18,7 @@ exports.show = function(req, res) {
       res.redirect('/');
     }
     else {
-      res.render('department', { title: department[0].name, id: id, courses: department[0].courses });
+      res.render('department', { title: department[0].name, breadcrumbs: breadcrumbs, id: id, courses: department[0].courses });
     }
   });
 };

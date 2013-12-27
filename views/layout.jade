@@ -13,8 +13,8 @@ html(class='no-js', lang='en', ng-app="enrollmentApp")
     script(src='/javascripts/controller.js')
   body
     .row
-      .large-12.columns
-        a(href='/')
+      .large-9.columns
+        a.logo(href='/')
           img(src='/images/telebearsRTC_logo.png')
         h3= title
         unless !breadcrumbs
@@ -26,6 +26,16 @@ html(class='no-js', lang='en', ng-app="enrollmentApp")
               else
                 li.current
                   a= crumb.val
+      .large-3.columns
+        form#search-form(action='/search', method='get')
+          .row.collapse
+            .small-10.columns
+              input#search(type='search', name='q', placeholder='Search courses', required)
+            .small-2.columns
+              button.button.postfix(type='submit')
+                i.fa.fa-search
+    .row
+      .large-12.columns
         hr
         block content
 

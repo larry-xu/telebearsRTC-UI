@@ -1,8 +1,9 @@
 /* Mobile Styles */
 @media only screen {
-  a img {
-    float: left;
-    margin: 0 1.25em 1em 0;
+  a.logo {
+    display: inherit;
+    text-align: center;
+    margin: 0.5em 0;
   }
   ul {
     margin: 0;
@@ -36,6 +37,12 @@
   .breadcrumbs>*:before {
     content: ">";
     margin: 0 0.625em;
+  }
+  form {
+    margin: 1em 0 0 0;
+  }
+  hr {
+    margin-top: 0;
   }
   .controls {
     margin-bottom: 1.25rem;
@@ -78,10 +85,29 @@
   table tr td {
     font-size: 0.75rem;
   }
+  .alert-box {
+    line-height: 1rem;
+  }
+  .alert-box a {
+    color: #2f3e63;
+  }
+  .alert-box i {
+    margin-right: 0.25em;
+  }
 }
 @media only screen and (min-width: 40.063em) {
   body {
     padding: 1.25em;
+  }
+  a.logo {
+    float: left;
+    margin: 0 1.25em 1em 0;
+  }
+  h3 {
+    margin-bottom: 0.125em;
+  }
+  form {
+    margin: 0;
   }
   table thead tr th,
   table tr td {
