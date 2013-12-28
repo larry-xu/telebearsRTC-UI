@@ -9,13 +9,21 @@
     margin: 0
     font-size: 0.8em
 
-  li.listing
-    a
+  li.listing a
+    display: block
+    background: #e9e9e9
+    margin-bottom: 0.25em
+    color: #222
+    border: 1px solid #ddd
+    font-size: 0.875em
+    border-left: 3px solid #3e98c5
+
+    strong
       display: block
-      background: #e9e9e9
-      margin-bottom: 0.125em
-      padding: 1em
-      color: #222
+      padding: 0.5em 1em 0 1em
+
+    .name
+      padding: 0 1em 0.5em 1em
 
   h3
     margin-bottom: 0.125em
@@ -129,6 +137,25 @@
   form
     margin: 0
 
+  li.listing a
+    border: 1px solid #ddd
+    font-size: 1em
+
+    strong
+      background: #3E98C5
+      color: #fff
+      padding: 0.5em 1em
+      float: left
+      margin-right: 1em
+      width: 8em
+      text-align: center
+
+      &.larger
+        width: 11em
+
+    .name
+      padding: 0.5em 1em
+
   table thead tr th, table tr td
     font-size: 0.875rem
 
@@ -142,11 +169,8 @@
       left: 9px
 
 @media only screen and (min-width: 64.063em)
-  li.listing a
-    padding: 0.5em 1em
-
-    &:hover
-      background: #f5eb7a
+  li.listing a:hover
+    background: #f5eb7a
   table
     tr:hover, tr:nth-of-type(even):hover
       background: #f5eb7a

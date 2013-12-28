@@ -11,9 +11,13 @@ block content
       ul.no-bullet
         - for (var i = 0; i < half_length; i++)
           li.listing
-            a(href=encodeURIComponent(departments[i].abbreviation.toLowerCase())) #{departments[i].name} (#{departments[i].abbreviation})
+            a(href=encodeURIComponent(departments[i].abbreviation.toLowerCase()))
+              strong #{departments[i].abbreviation}
+              .name #{departments[i].name}
     .large-6.columns
       ul.no-bullet
         - for (var i = half_length; i < length; i++)
           li.listing
-            a(href=encodeURIComponent(departments[i].abbreviation.toLowerCase())) #{departments[i].name} (#{departments[i].abbreviation})
+            a(href=encodeURIComponent(departments[i].abbreviation.toLowerCase()))
+              strong #{departments[i].abbreviation}
+              .name #{departments[i].name}

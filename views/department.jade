@@ -12,12 +12,12 @@ block content
         - for (var i = 0; i < half_length; i++)
           li.listing
             a(href=encodeURIComponent(id.toLowerCase())+'/'+courses[i].course.toLowerCase())
-              strong #{id} #{courses[i].course}
-              |  - #{courses[i].title}
+              strong.larger #{id} #{courses[i].course}
+              .name #{courses[i].title}
     .large-6.columns
       ul.no-bullet
         - for (var i = half_length; i < length; i++)
           li.listing
             a(href=encodeURIComponent(id.toLowerCase())+'/'+courses[i].course.toLowerCase())
-              strong #{id} #{courses[i].course}
-              |  - #{courses[i].title}
+              strong.larger #{id} #{courses[i].course}
+              .name #{courses[i].title}
