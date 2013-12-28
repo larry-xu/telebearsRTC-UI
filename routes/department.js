@@ -14,8 +14,7 @@ exports.show = function(req, res) {
   db.departments.find({abbreviation: id}, function(err, department) {
     if(err || !department) console.log('DB error');
     else if(department.length < 1) {
-      console.log('could not find department ' + id);
-      res.redirect('/');
+      res.render('404', { title: 'Errorrrrrrrr'});
     }
     else {
       res.render('department', { title: department[0].name, breadcrumbs: breadcrumbs, id: id, courses: department[0].courses });

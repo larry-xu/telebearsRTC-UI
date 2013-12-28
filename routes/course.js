@@ -24,8 +24,7 @@ exports.index = function(req, res) {
   }, function(err, department) {
     if(err || !department) console.log('DB error');
     else if(department.length < 1) {
-      console.log('could not find department ' + id);
-      res.redirect('/');
+      res.render('404', { title: 'Errorrrrrrrr'});
     }
     else {
       res.render('course', { title: title, breadcrumbs: breadcrumbs, id: id, course: course });

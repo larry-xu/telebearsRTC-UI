@@ -41,6 +41,8 @@ app.get('/:id/:course', require('./routes/course').index);
 app.get('/:id', require('./routes/department').show);
 app.get('/', routes.index);
 
+app.get('*', function(req, res) { res.render('404', { title: 'Errorrrrrrrr'}); })
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
