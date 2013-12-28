@@ -12,7 +12,7 @@ html(class='no-js', lang='en', ng-app="enrollmentApp")
     script(src='//ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.min.js')
     script(src='/javascripts/controller.js')
   body
-    .row
+    header.row
       .large-9.columns
         a.logo(href='/')
           img(src='/images/telebearsRTC_logo.png')
@@ -27,6 +27,14 @@ html(class='no-js', lang='en', ng-app="enrollmentApp")
                 li.current
                   a= crumb.val
       .large-3.columns
+        nav
+          ul.breadcrumbs
+            li
+              a(href='/') Home
+            li
+              a(href='/about') About
+            li
+              a(href='/contact') Contact
         form#search-form(action='/search', method='get')
           .row.collapse
             .small-10.columns
@@ -34,10 +42,18 @@ html(class='no-js', lang='en', ng-app="enrollmentApp")
             .small-2.columns
               button.button.postfix(type='submit')
                 i.fa.fa-search
-    .row
+    .row.main
       .large-12.columns
         hr
         block content
+    footer.row
+      .large-12.columns
+        hr
+        p
+          | &copy; 2014 
+          a(href='http://www.larryxu.com/') Larry Xu
+          |  EECS &#39;17
+
 
     script(src='/javascripts/vendor/jquery.js')
     script(src='/javascripts/foundation.min.js')

@@ -14,14 +14,8 @@
       display: block
       background: #e9e9e9
       margin-bottom: 0.125em
-      padding: 0.25em 1em
+      padding: 1em
       color: #222
-
-      span
-        float: right
-
-      &:hover
-        background: #ccc
 
   h3
     margin-bottom: 0.125em
@@ -39,10 +33,22 @@
         content: ">"
         margin: 0 0.625em
 
+  nav ul.breadcrumbs
+    float: right
+    margin-bottom: 0.5em
+
+    li
+      a
+        text-transform: none
+
+      &:before
+        content: "|";
+
   form
     margin: 1em 0 0 0
+    clear: both
 
-  hr
+  .main hr
     margin-top: 0
 
   .controls
@@ -92,6 +98,23 @@
     i
       margin-right: 0.25em
 
+  li.feature
+    text-align: center
+    padding-bottom: 2rem
+
+    i
+      font-size: 4em
+      margin-bottom: 0.5rem
+      color: #025d8c
+
+  footer p
+    font-size: 0.75em
+    color: #666
+
+    a
+      color: #555
+      text-decoration: underline
+
 @media only screen and (min-width: 40.063em)
   body
     padding: 1.25em
@@ -119,9 +142,14 @@
       left: 9px
 
 @media only screen and (min-width: 64.063em)
+  li.listing a
+    padding: 0.5em 1em
+
+    &:hover
+      background: #f5eb7a
   table
     tr:hover, tr:nth-of-type(even):hover
-      background: #ddd
+      background: #f5eb7a
 
     tr.headings:hover
       background: inherit

@@ -13,14 +13,8 @@
     display: block;
     background: #e9e9e9;
     margin-bottom: 0.125em;
-    padding: 0.25em 1em;
+    padding: 1em;
     color: #222;
-  }
-  li.listing a span {
-    float: right;
-  }
-  li.listing a:hover {
-    background: #ccc;
   }
   h3 {
     margin-bottom: 0.125em;
@@ -38,10 +32,21 @@
     content: ">";
     margin: 0 0.625em;
   }
+  nav ul.breadcrumbs {
+    float: right;
+    margin-bottom: 0.5em;
+  }
+  nav ul.breadcrumbs li a {
+    text-transform: none;
+  }
+  nav ul.breadcrumbs li:before {
+    content: "|";
+  }
   form {
     margin: 1em 0 0 0;
+    clear: both;
   }
-  hr {
+  .main hr {
     margin-top: 0;
   }
   .controls {
@@ -94,6 +99,23 @@
   .alert-box i {
     margin-right: 0.25em;
   }
+  li.feature {
+    text-align: center;
+    padding-bottom: 2rem;
+  }
+  li.feature i {
+    font-size: 4em;
+    margin-bottom: 0.5rem;
+    color: #025d8c;
+  }
+  footer p {
+    font-size: 0.75em;
+    color: #666;
+  }
+  footer p a {
+    color: #555;
+    text-decoration: underline;
+  }
 }
 @media only screen and (min-width: 40.063em) {
   body {
@@ -123,9 +145,15 @@
   }
 }
 @media only screen and (min-width: 64.063em) {
+  li.listing a {
+    padding: 0.5em 1em;
+  }
+  li.listing a:hover {
+    background: #f5eb7a;
+  }
   table tr:hover,
   table tr:nth-of-type(even):hover {
-    background: #ddd;
+    background: #f5eb7a;
   }
   table tr.headings:hover {
     background: inherit;
