@@ -4,7 +4,7 @@
  */
 
 var express = require('express')
-  , routes = require('./routes')
+  , routes = require('./routes/routes')
   , http = require('http')
   , path = require('path');
 
@@ -15,7 +15,7 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.locals.pretty = true;
-app.use(express.favicon());
+app.use(express.favicon(path.join(__dirname, 'public/images/favicon.ico')));
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
@@ -32,13 +32,12 @@ if ('development' == app.get('env')) {
 app.get('/api/sections/:id/:course', require('./routes/api').sections);
 app.get('/api/enrollment/:ccn', require('./routes/api').enrollment);
 
-app.get('/search', require('./routes/search').index);
-
+app.get('/search', routes.search);
 app.get('/about', function(req, res) { res.render('about', { title: 'About', semester: process.env.ENROLLMENT_PERIOD }) });
 app.get('/contact', function(req, res) { res.render('contact', { title: 'Contact'}) });
 
-app.get('/:id/:course', require('./routes/course').index);
-app.get('/:id', require('./routes/department').show);
+app.get('/:id/:course', routes.course);
+app.get('/:id', routes.department);
 app.get('/', routes.index);
 
 app.get('*', function(req, res) { res.render('404', { title: 'Errorrrrrrrr'}); })
