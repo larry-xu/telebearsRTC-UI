@@ -71,6 +71,32 @@
     margin: 1em 0 0 0;
     clear: both;
   }
+  form .twitter-typeahead {
+    position: inherit !important;
+    display: inherit !important;
+  }
+  form .twitter-typeahead .tt-dropdown-menu {
+    width: 100%;
+    border: 1px solid #999;
+    margin-top: 0.5em;
+    background: #fff;
+    box-shadow: 0 0 5px #999;
+  }
+  form .twitter-typeahead .tt-dropdown-menu .tt-suggestions {
+    display: inherit !important;
+  }
+  form .twitter-typeahead .tt-dropdown-menu .tt-suggestions .tt-suggestion {
+    padding: 0.25rem 0.5rem;
+    font-size: 0;
+  }
+  form .twitter-typeahead .tt-dropdown-menu .tt-suggestions .tt-suggestion.tt-is-under-cursor {
+    background: #0097cf;
+    color: #fff;
+  }
+  form .twitter-typeahead .tt-dropdown-menu .tt-suggestions .tt-suggestion p {
+    margin-bottom: 0;
+    font-size: 0.875rem;
+  }
   .main hr {
     margin-top: 0;
   }

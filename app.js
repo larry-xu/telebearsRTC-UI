@@ -31,6 +31,7 @@ if ('development' == app.get('env')) {
 // Routes
 app.get('/api/sections/:id/:course', require('./routes/api').sections);
 app.get('/api/enrollment/:ccn', require('./routes/api').enrollment);
+app.get('/api/autocomplete', routes.autocomplete);
 
 app.get('/search', routes.search);
 app.get('/about', function(req, res) { res.render('about', { title: 'About', semester: process.env.ENROLLMENT_PERIOD }) });

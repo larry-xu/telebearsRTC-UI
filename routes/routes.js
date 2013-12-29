@@ -116,11 +116,9 @@ exports.search = function(req, res) {
                     'CNM': 'NWMEDIA',
                     'NUCE': 'NUC ENG',
                     'NST': 'NUSCTX',
-                    'STATS': 'STAT' }
+                    'STATS': 'STAT' };
     if(department in aliases)
       department = aliases[department];
-    console.log(department);
-    console.log(course);
 
     if(separator < 0 || !/\d/.test(course)) {
       db.departments.find(
@@ -161,3 +159,54 @@ exports.search = function(req, res) {
     }
   }
 };
+
+/*
+ * GET search autocomplete suggestions
+ * Route: /autocomplete
+ */
+
+exports.autocomplete = function(req, res) {
+  var result = [];
+  db.departments.find().sort({name: 1}, function(err, data) {
+    if(err || !data) console.log('DB error');
+    else {
+      for(var i = 0; i < data.length; i++) {
+        var abb = data[i].abbreviation;
+        var aliases = { 'BIO ENG': 'BIOE',
+                    'CHM ENG': 'CHEME',
+                    'CIV ENG': 'CEE',
+                    'COMPSCI': 'CS',
+                    'EL ENG': 'EE',
+                    'ENGIN': 'E',
+                    'IND ENG': 'IEOR',
+                    'INTEGBI': 'IB',
+                    'MAT SCI': 'MSE',
+                    'MEC ENG': 'ME',
+                    'MCELLBI': 'MCB',
+                    'NWMEDIA': 'CNM',
+                    'NUC ENG': 'NUCE',
+                    'NUSCTX': 'NST',
+                    'STAT': 'STATS' };
+        if(abb in aliases) {
+          result.push(aliases[abb]);
+          for(var j = 0; j < data[i].courses.length; j++) {
+            var alias_datum = {};
+            var alias_course = aliases[abb] + ' ' + data[i].courses[j].course;
+            alias_datum.value = alias_course;
+            alias_datum.tokens = alias_course.split(' ');
+            result.push(alias_datum);
+          }
+        }
+        result.push(abb);
+        for(var j = 0; j < data[i].courses.length; j++) {
+          var datum = {};
+          var course = abb + ' ' + data[i].courses[j].course;
+          datum.value = course;
+          datum.tokens = course.split(' ');
+          result.push(datum);
+        }
+      }
+      res.json(result);
+    }
+  });
+}

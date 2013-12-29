@@ -9,8 +9,9 @@ html(class='no-js', lang='en', ng-app="enrollmentApp")
     link(rel='stylesheet', href='//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='/javascripts/vendor/custom.modernizr.js')
-    script(src='//ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.min.js')
-    script(src='/javascripts/controller.js')
+    if course
+      script(src='//ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.min.js')
+      script(src='/javascripts/controller.js')
   body
     header.row
       .large-9.columns
@@ -58,10 +59,15 @@ html(class='no-js', lang='en', ng-app="enrollmentApp")
     script(src='/javascripts/vendor/jquery.js')
     script(src='/javascripts/foundation.min.js')
     script(src='/javascripts/foundation/foundation.dropdown.js')
+    script(src='/javascripts/vendor/typeahead.min.js')
     script(src='/javascripts/vendor/placeholder.js')
     script(src='/javascripts/vendor/fastclick.js')
     script.
       $(document).foundation();
       $(function() {
         FastClick.attach(document.body);
+      });
+      $('input[type="search"]').typeahead({
+        name: 'courses',
+        prefetch: '/api/autocomplete'
       });
