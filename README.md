@@ -13,6 +13,6 @@ Technologies Used
 - **MVC Framework**: Angular.js
 - **Pre-processor**: Jade and Stylus
 - **CSS Framework**: ZURB Foundation
-- **Web Scrapers**: jsdom and request
+- **Web Scrapers**: cheerio and request
 
 Hosted on AppFog (because Heroku and Openshift were causing problems with outbound https requests)

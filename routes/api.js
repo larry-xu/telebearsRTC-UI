@@ -3,7 +3,7 @@
  * API calls
  */
 
-var jsdom = require('jsdom')
+var cheerio = require('cheerio')
   , request = require('request')
   , semester = process.env.SEMESTER
   , year = process.env.YEAR;
@@ -31,43 +31,42 @@ exports.loadSectionList = function(id,course,callback) {
   var courses = [];
   var url = "http://osoc.berkeley.edu/OSOC/osoc?p_term=" + semester + "&p_course=" + course + "&p_dept=" + id;
 
-  jsdom.env(
-    url,
-    ["//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"],
-    function(errors, window) {
-      if(errors) console.log(errors);
-      else {
-        var end = window.$('table').length - 1;
-        var index = 0;
-        window.$('table').slice(1,end).each(function() {
-          var data = {};
-          data.index = index;
-          var section = window.$(this).find('tr:nth-of-type(1) td:nth-of-type(3)').text().trim();
-          space = section.lastIndexOf(' ');
-          for(var i = 0; i < 2; i++) {
-            space = section.lastIndexOf(' ', space-1);
+  request.get(url, function(error, res, body) {
+    if(!error && res.statusCode == 200) {
+      var $ = cheerio.load(body);
+      var end = $('table').length - 1;
+      var index = 0;
+
+      $('table').slice(1,end).each(function() {
+        var data = {};
+        data.index = index;
+        var section = $(this).find('tr:nth-of-type(1) td:nth-of-type(3)').text().trim();
+        space = section.lastIndexOf(' ');
+        for(var i = 0; i < 2; i++) {
+          space = section.lastIndexOf(' ', space-1);
+        }
+        section_id = section.substring(space+1);
+        var sectionIndex = section.indexOf(course.toUpperCase());
+        if(section.charAt(sectionIndex-1) == ' ' && section.charAt(sectionIndex+course.length) == ' ') {
+          data.section = section_id;
+          data.instructor = $(this).find('tr:nth-of-type(3) td:nth-of-type(2)').text();
+          var restrictions = $(this).find('tr:nth-of-type(8) td:nth-of-type(2)').text();
+          var location = $(this).find('tr:nth-of-type(2) td:nth-of-type(2)').text();
+          if(location != "CANCELLED" && restrictions != "CURRENTLY NOT OPEN") {
+            var locationArray = location.split(", ");
+            data.time = locationArray[0];
+            data.location = locationArray[1];
+            data.ccn = $(this).find('input[name="_InField2"]').val();
+            courses.push(data);
+            index++;
           }
-          section_id = section.substring(space+1);
-          var sectionIndex = section.indexOf(course.toUpperCase());
-          if(section.charAt(sectionIndex-1) == ' ' && section.charAt(sectionIndex+course.length) == ' ') {
-            data.section = section_id;
-            data.instructor = window.$(this).find('tr:nth-of-type(3) td:nth-of-type(2)').text();
-            var restrictions = window.$(this).find('tr:nth-of-type(8) td:nth-of-type(2)').text();
-            var location = window.$(this).find('tr:nth-of-type(2) td:nth-of-type(2)').text();
-            if(location != "CANCELLED" && restrictions != "CURRENTLY NOT OPEN") {
-              var locationArray = location.split(", ");
-              data.time = locationArray[0];
-              data.location = locationArray[1];
-              data.ccn = window.$(this).find('input[name="_InField2"]').val();
-              courses.push(data);
-              index++;
-            }
-          }
-        });
-        callback(courses);
-      }
+        }
+      });
+      callback(courses);
     }
-  );
+    else
+      console.log('Error: ' + error);
+  });
 }
 
 /*
@@ -95,30 +94,21 @@ exports.loadEnrollmentData = function(ccn,callback) {
     }},
     function(error, res, body) {
     if (!error && res.statusCode == 200) {
-      var env = jsdom.env(
-        body,
-        ["//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"],
-        function(errors, window) {
-          if(errors)
-            console.log(errors);
-          else {
-            var divText = window.$('blockquote:first-of-type div.layout-div').text();
-            divText = divText.replace(/(\r\n|\n|\r)/gm,"");
-            divText = divText.replace(/\s+/g," ");
-            divText = divText.substring(1);
-            var textArray = divText.split(" ");
-            var enrollData = {};
-            enrollData.ccn = parseInt(ccn,10);
-            enrollData.enroll = parseInt(textArray[0],10);
-            enrollData.enrollLimit = parseInt(textArray[8],10);
-            if(textArray[21] != null) {
-              enrollData.waitlist = parseInt(textArray[10],10);
-              enrollData.waitlistLimit = parseInt(textArray[21]);
-            }
-            callback(enrollData);
-          }
-        }
-      );
+      var $ = cheerio.load(body);
+      var divText = $('blockquote:first-of-type div.layout-div').text();
+      divText = divText.replace(/(\r\n|\n|\r)/gm,"");
+      divText = divText.replace(/\s+/g," ");
+      divText = divText.substring(1);
+      var textArray = divText.split(" ");
+      var enrollData = {};
+      enrollData.ccn = parseInt(ccn,10);
+      enrollData.enroll = parseInt(textArray[0],10);
+      enrollData.enrollLimit = parseInt(textArray[8],10);
+      if(textArray[21] != null) {
+        enrollData.waitlist = parseInt(textArray[10],10);
+        enrollData.waitlistLimit = parseInt(textArray[21]);
+      }
+      callback(enrollData);
     }
     else
       console.log('Error: ' + error);

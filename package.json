@@ -1,6 +1,6 @@
 {
   "name": "TelebearsRTC",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "scripts": {
     "start": "node app.js"
@@ -10,7 +10,7 @@
     "jade": "*",
     "stylus": "*",
     "mongojs": "*",
-    "jsdom": "*",
+    "cheerio": "*",
     "request": "*"
   }
 }
