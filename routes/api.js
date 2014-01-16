@@ -5,8 +5,7 @@
 
 var cheerio = require('cheerio')
   , request = require('request')
-  , semester = process.env.SEMESTER
-  , year = process.env.YEAR;
+  , semester = process.env.SEMESTER;
 
 
 
@@ -76,41 +75,12 @@ exports.loadSectionList = function(id,course,callback) {
  */
 
 exports.enrollment = function(req, res) {
-  var ccn = req.params.ccn;
-  exports.loadEnrollmentData(ccn, function(result) {
-    res.set('Cache-Control','private');
-    res.json(result);
-  });
-}
-
-// queries telebears.berkeley.edu with ccn parameter and parses result
-// returns an object containing enrollment data
-exports.loadEnrollmentData = function(ccn,callback) {
-  request.post('https://telebears.berkeley.edu/enrollment-osoc/osc',
-    {form:{
-      _InField1:'RESTRIC',
-      _InField2: ccn,
-      _InField3: year
-    }},
-    function(error, res, body) {
-    if (!error && res.statusCode == 200) {
-      var $ = cheerio.load(body);
-      var divText = $('blockquote:first-of-type div.layout-div').text();
-      divText = divText.replace(/(\r\n|\n|\r)/gm,"");
-      divText = divText.replace(/\s+/g," ");
-      divText = divText.substring(1);
-      var textArray = divText.split(" ");
-      var enrollData = {};
-      enrollData.ccn = parseInt(ccn,10);
-      enrollData.enroll = parseInt(textArray[0],10);
-      enrollData.enrollLimit = parseInt(textArray[8],10);
-      if(textArray[21] != null) {
-        enrollData.waitlist = parseInt(textArray[10],10);
-        enrollData.waitlistLimit = parseInt(textArray[21]);
-      }
-      callback(enrollData);
+  request.get('http://telebearsrtc.hp.af.cm/api/enrollment/'+req.params.ccn, function(error, response, body) {
+    if (!error && response.statusCode == 200) {
+      res.set('Cache-Control','private');
+      res.json(JSON.parse(body));
     }
     else
       console.log('Error: ' + error);
-  })
+  });
 }
