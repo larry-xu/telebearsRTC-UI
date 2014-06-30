@@ -1,14 +1,12 @@
 @font-face {
   font-family: 'Roboto';
   src: url("fonts/Roboto-Regular-webfont.eot");
-  src: url("fonts/Roboto-Regular-webfont.eot?#iefix") format('embedded-opentype'), url("fonts/Roboto-Regular-webfont.woff") format('woff'), url("fonts/Roboto-Regular-webfont.ttf") format('truetype'), url("fonts/Roboto-Regular-webfont.svg#robotoregular") format('svg');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'Roboto';
   src: url("fonts/Roboto-Bold-webfont.eot");
-  src: url("fonts/Roboto-Bold-webfont.eot?#iefix") format('embedded-opentype'), url("fonts/Roboto-Bold-webfont.woff") format('woff'), url("fonts/Roboto-Bold-webfont.ttf") format('truetype'), url("fonts/Roboto-Bold-webfont.svg#robotobold") format('svg');
   font-weight: bold;
   font-style: normal;
 }
@@ -53,7 +51,7 @@
   .breadcrumbs>* {
     font-size: 0.75rem;
   }
-  .breadcrumbs>*:before {
+  .breadcrumbs>*before {
     content: ">";
     margin: 0 0.625em;
   }
@@ -64,7 +62,7 @@
   nav ul.breadcrumbs li a {
     text-transform: none;
   }
-  nav ul.breadcrumbs li:before {
+  nav ul.breadcrumbs libefore {
     content: "|";
   }
   form {
@@ -113,11 +111,11 @@
     width: auto;
     min-width: 120px;
   }
-  .controls .f-dropdown:before {
+  .controls .f-dropdownbefore {
     left: auto;
     right: 10px;
   }
-  .controls .f-dropdown:after {
+  .controls .f-dropdownafter {
     left: auto;
     right: 9px;
   }
@@ -134,7 +132,7 @@
     width: 100%;
   }
   table .filled,
-  table tr:nth-of-type(even).filled {
+  table trnth-of-type(even).filled {
     background: #f3d8d9;
   }
   table thead tr th,
@@ -205,24 +203,24 @@
   table tr td {
     font-size: 0.875rem;
   }
-  .controls .f-dropdown:before {
+  .controls .f-dropdownbefore {
     right: auto;
     left: 10px;
   }
-  .controls .f-dropdown:after {
+  .controls .f-dropdownafter {
     right: auto;
     left: 9px;
   }
 }
 @media only screen and (min-width: 64.063em) {
-  li.listing a:hover {
+  li.listing ahover {
     background: #f5eb7a;
   }
-  table tr:hover,
-  table tr:nth-of-type(even):hover {
+  table trhover,
+  table trnth-of-type(even)hover {
     background: #f5eb7a;
   }
-  table tr.headings:hover {
+  table tr.headingshover {
     background: inherit;
   }
 }
