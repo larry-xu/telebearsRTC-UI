@@ -1,20 +1,14 @@
 @font-face
   font-family 'Roboto'
   src url('fonts/Roboto-Regular-webfont.eot')
-  src url('fonts/Roboto-Regular-webfont.eot?#iefix') format('embedded-opentype')
-       url('fonts/Roboto-Regular-webfont.woff') format('woff')
-       url('fonts/Roboto-Regular-webfont.ttf') format('truetype')
-       url('fonts/Roboto-Regular-webfont.svg#robotoregular') format('svg')
+  src url('fonts/Roboto-Regular-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/Roboto-Regular-webfont.woff') format('woff'), url('fonts/Roboto-Regular-webfont.ttf') format('truetype'), url('fonts/Roboto-Regular-webfont.svg#robotoregular') format('svg')
   font-weight normal
   font-style normal
 
 @font-face
   font-family 'Roboto'
   src url('fonts/Roboto-Bold-webfont.eot')
-  src url('fonts/Roboto-Bold-webfont.eot?#iefix') format('embedded-opentype')
-       url('fonts/Roboto-Bold-webfont.woff') format('woff')
-       url('fonts/Roboto-Bold-webfont.ttf') format('truetype')
-       url('fonts/Roboto-Bold-webfont.svg#robotobold') format('svg')
+  src url('fonts/Roboto-Bold-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/Roboto-Bold-webfont.woff') format('woff'), url('fonts/Roboto-Bold-webfont.ttf') format('truetype'), url('fonts/Roboto-Bold-webfont.svg#robotobold') format('svg')
   font-weight bold
   font-style normal
 
@@ -59,7 +53,7 @@
     &>*
       font-size 0.75rem
 
-      &before
+      &:before
         content ">"
         margin 0 0.625em
 
@@ -71,7 +65,7 @@
       a
         text-transform none
 
-      &before
+      &:before
         content "|"
 
   form
@@ -120,11 +114,11 @@
       width auto
       min-width 120px
 
-      &before
+      &:before
         left auto
         right 10px
 
-      &after
+      &:after
         left auto
         right 9px
 
@@ -140,7 +134,7 @@
   table
     width 100%
 
-    .filled, trnth-of-type(even).filled
+    .filled, tr:nth-of-type(even).filled
       background #f3d8d9
 
     thead tr th, tr td
@@ -208,20 +202,20 @@
     font-size 0.875rem
 
   .controls .f-dropdown
-    &before
+    &:before
       right auto
       left 10px
 
-    &after
+    &:after
       right auto
       left 9px
 
 @media only screen and (min-width 64.063em)
-  li.listing ahover
+  li.listing a:hover
     background #f5eb7a
   table
-    trhover, trnth-of-type(even)hover
+    tr:hover, tr:nth-of-type(even):hover
       background #f5eb7a
 
-    tr.headingshover
+    tr.headings:hover
       background inherit
