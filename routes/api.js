@@ -75,7 +75,7 @@ exports.loadSectionList = function(id,course,callback) {
  */
 
 exports.enrollment = function(req, res) {
-  request.get('http://telebearsrtc.uc01.clc.af.cm/api/enrollment/'+req.params.ccn, function(error, response, body) {
+  request.get('http://telebearsrtc.azurewebsites.net/api/enrollment/'+req.params.ccn, function(error, response, body) {
     if (!error && response.statusCode == 200) {
       res.set('Cache-Control','private');
       res.json(JSON.parse(body));
