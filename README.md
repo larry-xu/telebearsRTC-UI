@@ -15,4 +15,4 @@ Technologies Used
 - **CSS Framework**: ZURB Foundation
 - **Web Scrapers**: cheerio and request
 
-Hosted on Heroku using AppFog as a proxy for outbound https requests
+Hosted on Heroku using Microsoft Azure as an API server for outbound https requests
